@@ -3,13 +3,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-
-typedef struct data{
-  double *vertex;
+typedef struct data {
+  double* vertexes;
   int* vectors;
 
-  int vertex_count;
+  int vertexes_count;
+  int vercotrs_count;
 
   int x_min;
   int x_max;
@@ -19,14 +20,11 @@ typedef struct data{
   int z_max;
 } data;
 
-/// @brief  
-/// @param str name if file 
+/// @brief
+/// @param str name if file
 /// @param progect final struct
 /// @return 0 if all right, 2 if file not found
 
 int parser(char* str, data* progect);
-
-
-
 
 #endif  // VIEWER_H
