@@ -9,8 +9,9 @@ typedef struct data {
   double* vertexes;
   int* vectors;
 
-  int vertexes_count;
-  int vercotrs_count;
+  int vertexes_count; 
+  int vecotrs_count; // number of vertexes in all poligon;
+  
 
   int x_min;
   int x_max;
