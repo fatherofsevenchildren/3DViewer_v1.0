@@ -63,6 +63,30 @@ int getValue(char* str, data* progect) {
 }
 
 
+
+minmax_t getMinMax(data progect) {
+  minmax_t frame = {0.0,0.0,0.0,0.0,0.0,0.0};
+  frame.x_max = frame.x_min = progect.vertexes[0];
+  frame.y_max = frame.y_min = progect.vertexes[1];
+  frame.z_max = frame.z_min = progect.vertexes[2];
+  for (int i = 3; i < progect.vertexes_count*3; i++) {
+    if(!(i%3)){
+      if(progect.vertexes[i] > frame.x_max) frame.x_max = progect.vertexes[i];
+      if(progect.vertexes[i] < frame.x_min) frame.x_min = progect.vertexes[i];
+    } else if (i%3 == 1){
+      if(progect.vertexes[i] > frame.y_max) frame.y_max = progect.vertexes[i];
+      if(progect.vertexes[i] < frame.y_min) frame.y_min = progect.vertexes[i];
+    } else {
+      if(progect.vertexes[i] > frame.z_max) frame.z_max = progect.vertexes[i];
+      if(progect.vertexes[i] < frame.z_min) frame.z_min = progect.vertexes[i];
+    } 
+  }
+  return frame;
+}
+
+
+
+
 /// @brief
 /// @param str name if file
 /// @param progect final struct
@@ -76,16 +100,20 @@ int parser(char* str, data* progect) {
   progect->vertexes = calloc(progect->vertexes_count * 3, sizeof(double));
   progect->vectors = calloc(progect->vecotrs_count * 2, sizeof(int));
   getValue(str, progect);
+  minmax_t frame = getMinMax(*progect);
+  printf("%lf   %lf", frame.x_max, frame.y_min);
   return 0;
 }
 
 int main() {
-  data progect;
+  data progect = {0,0,0,0};
   parser("../models/cube.obj", &progect);
-  printf("v:%df:%d\n\n", progect.vertexes_count, progect.vecotrs_count);
-  for(int i = 0; i < progect.vecotrs_count * 2; i++) {
-    printf("%d  ", progect.vectors[i]);
-  }
+  // printf("v:%df:%d\n\n", progect.vertexes_count, progect.vecotrs_count);
+
+  // for(int i = 0; i < progect.vecotrs_count * 2; i++) {
+  //   printf("%d  ", progect.vectors[i]);
+  // }
+  
   free(progect.vertexes);
   free(progect.vectors);
 }

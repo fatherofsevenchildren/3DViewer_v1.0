@@ -14,12 +14,12 @@ typedef struct data {
 } data;
 
 typedef struct {
-  int x_min;
-  int x_max;
-  int y_min;
-  int y_max;
-  int z_min;
-  int z_max;
+  double x_min;
+  double x_max;
+  double y_min;
+  double y_max;
+  double z_min;
+  double z_max;
 } minmax_t;
 
 /// @brief
