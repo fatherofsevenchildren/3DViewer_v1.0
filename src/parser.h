@@ -11,20 +11,23 @@ typedef struct data {
 
   int vertexes_count; 
   int vecotrs_count; // number of vertexes in all poligon;
-  
+} data;
 
+typedef struct {
   int x_min;
   int x_max;
   int y_min;
   int y_max;
   int z_min;
   int z_max;
-} data;
+} minmax_t;
 
 /// @brief
 /// @param str name if file
 /// @param progect final struct
 /// @return 0 if all right, 2 if file not found
+
+minmax_t getMinMax(data progect);
 
 int parser(char* str, data* progect);
 
