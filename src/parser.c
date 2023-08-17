@@ -41,16 +41,20 @@ int getValue(char* str, data* progect) {
     if (line[0] == 'f' && line[1] == ' ') {
       char* cur_line = line;
       char* token = strtok(cur_line, " ");
-      while(token != NULL) {
+        int buffer_first_vector = 0;
         int flag_first = 0;
+      while(token != NULL) {
         token = strtok(NULL, " ");
         if(token){
-          progect->vectors[j++] = atoi(strtok(token, "/"));
-          if (flag_first) {
-            
-          }
+          progect->vectors[j++] = atoi(token);
+          if(!flag_first) {
+            buffer_first_vector = atoi(token);
+            flag_first++;
+          } else
+          progect->vectors[j++] = atoi(token);
         }
       }
+      progect->vectors[j++] = buffer_first_vector;
     }
   }
   free(line);
@@ -63,7 +67,7 @@ int getValue(char* str, data* progect) {
 /// @param str name if file
 /// @param progect final struct
 /// @return 0 - all right, 2 - file not found, 1 - other error
-
+/// after finctoin need free memory free(progect.vertexes); and free(progect.vectors);
 
 
 int parser(char* str, data* progect) {
@@ -71,8 +75,7 @@ int parser(char* str, data* progect) {
   if (variableCount(str, progect)) return 2;
   progect->vertexes = calloc(progect->vertexes_count * 3, sizeof(double));
   progect->vectors = calloc(progect->vecotrs_count * 2, sizeof(int));
-
-  
+  getValue(str, progect);
   return 0;
 }
 
@@ -80,12 +83,9 @@ int main() {
   data progect;
   parser("../models/cube.obj", &progect);
   printf("v:%df:%d\n\n", progect.vertexes_count, progect.vecotrs_count);
-  getValue("../models/cube.obj", &progect);
-  for(int i = 0; i < progect.vertexes_count * 3 - 1; i++) {
-    printf("%lf  ", progect.vertexes[i]);
+  for(int i = 0; i < progect.vecotrs_count * 2; i++) {
+    printf("%d  ", progect.vectors[i]);
   }
- 
-
   free(progect.vertexes);
   free(progect.vectors);
 }
